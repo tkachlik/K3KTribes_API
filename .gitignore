@@ -52,11 +52,8 @@
 # TOMAS_CURLCommandsForSendGrid
 /TribesCode/SendGridCurl.txt
 
-#/Michal_Appsettings
+# Appsettings
 /TribesCode/appsettings.json
-
-# TOMAS_ErrorResponseGeneralFormat
-/TribesCode/ErrorResponseFormat.txt
 
 
 # =========================
