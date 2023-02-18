@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dusicyon-midnight-tribes-backend", "TribesCode\dusicyon-midnight-tribes-backend.csproj", "{2DBDA7D6-0236-44E1-AFE8-5E2EEE2A518D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TribesCode", "TribesCode\TribesCode.csproj", "{2DBDA7D6-0236-44E1-AFE8-5E2EEE2A518D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TribesTests", "TribesTests\TribesTests.csproj", "{B4E8E7FB-7DAB-4EF9-B596-A8475E5ADFFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TribesTests", "TribesTests\TribesTests.csproj", "{B4E8E7FB-7DAB-4EF9-B596-A8475E5ADFFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
