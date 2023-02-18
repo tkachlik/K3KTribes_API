@@ -1,0 +1,3 @@
+﻿ To change the environment variable in your Package Manager Console, so you can migrate and update the TEST database, just enter:
+ 
+$env:ASPNETCORE_ENVIRONMENT='Test'
