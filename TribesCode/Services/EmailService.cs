@@ -18,12 +18,12 @@ namespace dusicyon_midnight_tribes_backend.Services
             
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
             {
-                _verifyEmailLink = "https://tribesk3game.azurewebsites.net/api/email/verify/";
-                _passwordResetLink = "https://tribesk3game.azurewebsites.net/api/playermanagement/reset-password/";
+                _verifyEmailLink = "TBA";
+                _passwordResetLink = "TBA";
             }
             else
             {
-                _verifyEmailLink = "https://localhost:7038/api/email/verify/";
+                _verifyEmailLink = "https://localhost:7038/api/playermanagement/verify-your-email/";
                 _passwordResetLink = "https://localhost:7038/api/playermanagement/reset-password/";
             }
         }

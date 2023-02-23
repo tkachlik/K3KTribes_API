@@ -37,16 +37,7 @@ public class PlayerManagementService : IPlayerManagementService
     }
 
     // PUBLIC INTERFACE METHODS
-    public string HashPassword(string password)
-    {
-        return BCrypt.EnhancedHashPassword(password, hashType: HashType.SHA384);
-    }
-
-    public bool VerifyPassword(string password, string passwordHashed)
-    {
-        return BCrypt.EnhancedVerify(password, passwordHashed, hashType: HashType.SHA384);
-    }
-
+    
     public IResponse Register(PlayerRegistrationRequest request)
     {
         var passwordHashed = HashPassword(request.Password);
@@ -277,6 +268,16 @@ public class PlayerManagementService : IPlayerManagementService
     }
 
     // PRIVATE HELPER METHODS
+
+    private string HashPassword(string password)
+    {
+        return BCrypt.EnhancedHashPassword(password, hashType: HashType.SHA384);
+    }
+
+    private bool VerifyPassword(string password, string passwordHashed)
+    {
+        return BCrypt.EnhancedVerify(password, passwordHashed, hashType: HashType.SHA384);
+    }
 
     private string OverwriteForgottenPasswordIfExistsAndSendToken(Player player, string token, DateTime expiration)
     {

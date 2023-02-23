@@ -12,13 +12,11 @@ namespace dusicyon_midnight_tribes_backend.Controllers
     public class PlayerManagementController : ControllerBase
     {
         private readonly IPlayerManagementService _playerManagementService;
-        private readonly IPlayerService _playerService;
         private readonly ITokenService _tokenService;
 
-        public PlayerManagementController(IPlayerManagementService playerManagementService, IPlayerService playerService, ITokenService tokenService)
+        public PlayerManagementController(IPlayerManagementService playerManagementService, ITokenService tokenService)
         {
             _playerManagementService = playerManagementService;
-            _playerService = playerService;
             _tokenService = tokenService;
         }
 
@@ -55,20 +53,47 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             }
         }
 
-        // This endpoint is just to test authentication via token works.
-        [HttpPost("get-player"), Authorize]
-        public ActionResult GetPlayer([FromHeader] string authorization)
-        {
-            int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
-
-            return Ok(_playerService.GetPlayerByID(playerId));
-        }
-
         [HttpPost("verify-your-email"), Authorize]
         public ActionResult VerifyPlayerEmailStep1([FromHeader] string authorization)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
             var response = _playerManagementService.VerifyPlayerEmail(playerId);
+
+            if (response is ErrorResponse)
+            {
+                var error = response as ErrorResponse;
+
+                return StatusCode(error.StatusCode, error);
+            }
+            else
+            {
+                return Ok(response);
+            }
+        }
+
+        [HttpGet("verify-your-email/{token}")]
+        public ActionResult VerifyPlayerEmailStep2([FromRoute] string token)
+        {
+            var response = _tokenService.CheckEmailVerificationTokenValidity(token);
+
+            if (response is ErrorResponse)
+            {
+                var error = response as ErrorResponse;
+
+                return StatusCode(error.StatusCode, error);
+            }
+            else
+            {
+                return Ok(response);
+            }
+        }
+
+        [HttpPost("resend-email-verification-token"), Authorize]
+        public ActionResult ResendEmailVerificationToken([FromHeader] string authorization)
+        {
+            int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
+
+            var response = _playerManagementService.ResendEmailVerificationToken(playerId);
 
             if (response is ErrorResponse)
             {

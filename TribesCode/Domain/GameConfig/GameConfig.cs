@@ -7,7 +7,7 @@ namespace dusicyon_midnight_tribes_backend.Domain.GameConfig
 
         private int _startLevelOfSeedData = 1;
         private int _endLevelOfSeedData = 20;
-        private int _timeAccelerator = 1;
+        private int _timeAccelerator = 30;
         private string _resourcePath=@"Domain\SeedData\";
 
         private int _maxAmountOfFarms = 5;

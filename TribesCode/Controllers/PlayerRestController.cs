@@ -11,10 +11,12 @@ namespace dusicyon_midnight_tribes_backend.Controllers
     public class PlayerRestController : ControllerBase
     {
         private readonly IPlayerService _playerService;
+        private readonly ITokenService _tokenService;
 
-        public PlayerRestController(IPlayerService playerService)
+        public PlayerRestController(IPlayerService playerService, ITokenService tokenService)
         {
             _playerService = playerService;
+            _tokenService = tokenService;
         }
 
         [HttpGet("")]
@@ -44,6 +46,14 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             }
 
             return Ok(response);
+        }
+
+        [HttpGet("get-my-info"), Authorize]
+        public ActionResult GetPlayer([FromHeader] string authorization)
+        {
+            int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
+
+            return Ok(_playerService.GetPlayerByID(playerId));
         }
     }
 }
