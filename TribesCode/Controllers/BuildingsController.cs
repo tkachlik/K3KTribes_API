@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dusicyon_midnight_tribes_backend.Controllers;
-[Route("api/buildings")]
+[Route("api/[controller]")]
 [ApiController]
 [Authorize]
 
@@ -54,7 +54,7 @@ public class BuildingsController : ControllerBase
         }
     }
 
-    [HttpPost("constructionOptions")]
+    [HttpPost("show-construction-options")]
     public ActionResult ConstructionOptions([FromHeader] string authorization,ConstructionOptionsRequest request)
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
@@ -71,7 +71,7 @@ public class BuildingsController : ControllerBase
         }
     }
 
-    [HttpPost("showAvailableUpgrades")]
+    [HttpPost("show-available-upgrades")]
     public ActionResult ShowAvailableUpgrades([FromHeader] string authorization, ShowAvailableUpgradesRequest request)
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
@@ -89,7 +89,7 @@ public class BuildingsController : ControllerBase
         }
     }
 
-    [HttpPost("showBuildingsUnderConstruction")]
+    [HttpPost("show-buildings-under-construction")]
     public ActionResult ShowBuildingsUnderConstruction([FromHeader] string authorization,
         ShowBuildingsUnderConstructionRequest request)
     {

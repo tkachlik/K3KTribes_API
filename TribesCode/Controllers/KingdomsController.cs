@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dusicyon_midnight_tribes_backend.Controllers;
 
-[Route("api/kingdoms")]
+[Route("api/[controller]")]
 [ApiController]
 [Authorize]
 
@@ -29,7 +29,7 @@ public class KingdomsController : ControllerBase
         return StatusCode(error.StatusCode, error);
     }
 
-    [HttpGet("get-all-my-kingdoms")]
+    [HttpGet("get-my-kingdoms")]
     public ActionResult GetAllMyKingdoms ([FromHeader]string authorization)
     {
         int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);

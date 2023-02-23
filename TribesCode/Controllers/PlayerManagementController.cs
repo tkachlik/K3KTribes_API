@@ -53,7 +53,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             }
         }
 
-        [HttpPost("verify-your-email"), Authorize]
+        [HttpGet("verify-your-email"), Authorize]
         public ActionResult VerifyPlayerEmailStep1([FromHeader] string authorization)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
@@ -88,7 +88,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             }
         }
 
-        [HttpPost("resend-email-verification-token"), Authorize]
+        [HttpGet("resend-email-verification-token"), Authorize]
         public ActionResult ResendEmailVerificationToken([FromHeader] string authorization)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);

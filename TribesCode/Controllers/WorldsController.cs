@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dusicyon_midnight_tribes_backend.Controllers
 {
-    [Route("api/worlds")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class WorldsController : ControllerBase

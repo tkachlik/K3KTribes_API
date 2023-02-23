@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dusicyon_midnight_tribes_backend.Controllers
 {
-    [Route("api/players")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class PlayersController : ControllerBase
@@ -20,7 +20,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult Index()
+        public ActionResult GetAllPlayers()
         {
             var response = _playerService.GetAllPlayers();
 
@@ -34,7 +34,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Show([FromRoute]int id)
+        public ActionResult GetPlayerById([FromRoute]int id)
         {
             var response = _playerService.GetPlayerByID(id);
 
@@ -49,7 +49,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         }
 
         [HttpGet("get-my-info"), Authorize]
-        public ActionResult GetPlayer([FromHeader] string authorization)
+        public ActionResult GetLoggedInPlayer([FromHeader] string authorization)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
