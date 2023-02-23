@@ -1,8 +1,6 @@
-﻿using dusicyon_midnight_tribes_backend.Models.APIRequests.Productions;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.Productions;
+﻿using dusicyon_midnight_tribes_backend.Models.APIResponses.Productions;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomValidation;
-using dusicyon_midnight_tribes_backend.Models.Entities;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
@@ -23,8 +21,8 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
             _client = factory.CreateClient();
             _testTokenService = testTokenService;
             _bearerTokenForPlayer1 = $"Bearer {_testTokenService.GenerateTestToken(1)}";
-            _showAllProductionOptionsUri = "/api/productions/show-available-production-options-of-kingdom";
-            _showAllUncollectedProductionsUri = "/api/productions/show-all-uncollected-productions";
+            _showAllProductionOptionsUri = "/api/productions/show-available-production-options";
+            _showAllUncollectedProductionsUri = "/api/productions/show-uncollected-productions";
         }
 
         [Theory]
@@ -255,15 +253,15 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
             };
 
         [Theory]
-        [MemberData(nameof(ShowAllUncollectedProductions_OkTests_Data))]
-        public async Task ShowAllUncollectedProductions_OkTests(int playerId, int kingdomId, ShowAllUncollectedProductionsResponse expectedResponse)
+        [MemberData(nameof(ShowUncollectedProductions_OkTests_Data))]
+        public async Task ShowUncollectedProductions_OkTests(int playerId, int kingdomId, ShowUncollectedProductionsResponse expectedResponse)
         {
             string bearerToken = $"Bearer {_testTokenService.GenerateTestToken(playerId)}";
             _client.DefaultRequestHeaders.Add("Authorization", bearerToken);
 
-            var actualResult = await _client.GetAsync($"{_showAllProductionOptionsUri}/{kingdomId}");
+            var actualResult = await _client.GetAsync($"{_showAllUncollectedProductionsUri}/{kingdomId}");
             var actualStatusCode = actualResult.StatusCode;
-            var actualResponse = await actualResult.Content.ReadFromJsonAsync<ShowAllUncollectedProductionsResponse>();
+            var actualResponse = await actualResult.Content.ReadFromJsonAsync<ShowUncollectedProductionsResponse>();
 
             var expectedStatusCode = HttpStatusCode.OK;
 
@@ -271,7 +269,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
             Assert.True(expectedResponse.Equals(actualResponse));
         }
 
-        public static IEnumerable<object[]> ShowAllUncollectedProductions_OkTests_Data =>
+        public static IEnumerable<object[]> ShowUncollectedProductions_OkTests_Data =>
             new List<object[]>
             {
                 new object[]
@@ -280,29 +278,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
                     1,
 
-                    new ShowAllUncollectedProductionsResponse
-                    (
-                        new List<ProductionDTO>()
-                        {
-                            new ProductionDTO()
-                            {
-                                ResourceType = "Food",
-                                AmountProduced = 6,
-                                IsReadyForCollection = true,
-                                ReadyAt = "2023.01.01. 01:00:00",
-                                ProductionId = 1
-                            }
-                        }
-                    )
-                },
-
-                new object[]
-                {
-                    1,
-
-                    1000,
-
-                    new ShowAllUncollectedProductionsResponse
+                    new ShowUncollectedProductionsResponse
                     (
                         new List<ProductionDTO>()
                         {
@@ -324,7 +300,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
                     2,
 
-                    new ShowAllUncollectedProductionsResponse
+                    new ShowUncollectedProductionsResponse
                     (
                         new List<ProductionDTO>()
                     )
@@ -336,7 +312,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
                     02,
 
-                    new ShowAllUncollectedProductionsResponse
+                    new ShowUncollectedProductionsResponse
                     (
                         new List<ProductionDTO>()
                     )
