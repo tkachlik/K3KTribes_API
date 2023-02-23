@@ -1,15 +1,11 @@
-
-using System.Security.Cryptography.X509Certificates;
 using AutoMapper;
-using dusicyon_midnight_tribes_backend.Contexts;
 using dusicyon_midnight_tribes_backend.Domain.GameConfig;
-using dusicyon_midnight_tribes_backend.Models.APIRequests.BuildingRest;
-using dusicyon_midnight_tribes_backend.Models.APIResponses;
+using dusicyon_midnight_tribes_backend.Models.APIRequests.Buildings;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Buildings;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.Entities;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using dusicyon_midnight_tribes_backend.Services.Repositories;
-using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace dusicyon_midnight_tribes_backend.Services;
 

@@ -1,6 +1,5 @@
 using System.Net;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.KingdomRest;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.PlayerRest;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Kingdoms;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;

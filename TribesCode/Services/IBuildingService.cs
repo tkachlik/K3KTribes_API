@@ -1,4 +1,4 @@
-using dusicyon_midnight_tribes_backend.Models.APIRequests.BuildingRest;
+using dusicyon_midnight_tribes_backend.Models.APIRequests.Buildings;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 
 namespace dusicyon_midnight_tribes_backend.Services;

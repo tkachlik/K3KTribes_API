@@ -1,7 +1,7 @@
 using AutoMapper;
 using dusicyon_midnight_tribes_backend.Domain.GameConfig;
-using dusicyon_midnight_tribes_backend.Models.APIRequests.KingdomRest;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.KingdomRest;
+using dusicyon_midnight_tribes_backend.Models.APIRequests.Kingdoms;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Kingdoms;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.Entities;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;

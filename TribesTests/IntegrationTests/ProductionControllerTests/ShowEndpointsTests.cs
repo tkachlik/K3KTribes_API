@@ -1,8 +1,7 @@
-﻿using dusicyon_midnight_tribes_backend.Models.APIRequests.ProductionsRest;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.ProductionsRest;
+﻿using dusicyon_midnight_tribes_backend.Models.APIRequests.Productions;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Productions;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomValidation;
-using dusicyon_midnight_tribes_backend.Models.Entities;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;

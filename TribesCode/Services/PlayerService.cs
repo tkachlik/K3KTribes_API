@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.PlayerRest;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Players;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using dusicyon_midnight_tribes_backend.Services.Repositories;

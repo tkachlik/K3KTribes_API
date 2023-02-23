@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using dusicyon_midnight_tribes_backend.Contexts;
-using dusicyon_midnight_tribes_backend.Models.APIRequests.ProductionsRest;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.ProductionsRest;
+using dusicyon_midnight_tribes_backend.Models.APIRequests.Productions;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Productions;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.Entities;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using dusicyon_midnight_tribes_backend.Services.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace dusicyon_midnight_tribes_backend.Services
 {

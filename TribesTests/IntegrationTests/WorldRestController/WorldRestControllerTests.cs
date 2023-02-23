@@ -1,14 +1,11 @@
 ﻿using dusicyon_midnight_tribes_backend.Models.APIRequests.WorldRest;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.PlayerRest;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomValidation;
-using dusicyon_midnight_tribes_backend.Models.APIResponses.WorldRest;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Worlds;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using TribesTests.Helpers;
-using Xunit.Sdk;
 
 namespace TribesTests.IntegrationTests.WorldRestController
 {

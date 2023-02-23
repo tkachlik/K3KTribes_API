@@ -1,6 +1,5 @@
 ﻿using SendGrid;
 using SendGrid.Helpers.Mail;
-using static System.Net.WebRequestMethods;
 
 namespace dusicyon_midnight_tribes_backend.Services
 {

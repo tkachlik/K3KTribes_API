@@ -1,5 +1,3 @@
-using dusicyon_midnight_tribes_backend.Models.APIRequests.BuildingRest;
-
 namespace dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 
 public class ConstructionOptionsDTO

@@ -1,4 +1,4 @@
-using dusicyon_midnight_tribes_backend.Models.APIRequests.KingdomRest;
+using dusicyon_midnight_tribes_backend.Models.APIRequests.Kingdoms;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 
 namespace dusicyon_midnight_tribes_backend.Services;
