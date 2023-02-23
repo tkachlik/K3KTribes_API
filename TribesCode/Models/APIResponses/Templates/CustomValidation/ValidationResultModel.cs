@@ -2,7 +2,7 @@
 
 namespace dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomValidation
 {
-    public class ValidationResultModel
+    public class ValidationResultModel : IResponse
     {
         public string Status { get; } = "Ok";
         public int StatusCode { get; } = 400;
@@ -20,6 +20,14 @@ namespace dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomV
                     .SelectMany(key => modelState[key].Errors
                     .Select(x => new ValidationError(key, x.ErrorMessage)))
                     .ToList();
+        }
+
+        public ValidationResultModel(string field, string errorMessage)
+        {
+            Errors = new List<ValidationError>()
+            {
+                new ValidationError(field, errorMessage)
+            };
         }
 
         public override bool Equals(object? obj)

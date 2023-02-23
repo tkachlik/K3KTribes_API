@@ -1,5 +1,6 @@
 ﻿using dusicyon_midnight_tribes_backend.Models.APIRequests.Productions;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomValidation;
 using dusicyon_midnight_tribes_backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,13 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
             var response = _productionOptionService.ShowAvailableProductionOptions(playerId, kingdomId);
+
+            if(response is ValidationResultModel)
+            {
+                var validationError = response as ValidationResultModel;
+
+                return StatusCode(validationError.StatusCode, validationError);
+            }
 
             if (response is ErrorResponse)
             {
@@ -64,6 +72,13 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
             var response = _productionService.ShowUncollectedProductions(playerId, kingdomId);
+
+            if (response is ValidationResultModel)
+            {
+                var validationError = response as ValidationResultModel;
+
+                return StatusCode(validationError.StatusCode, validationError);
+            }
 
             if (response is ErrorResponse)
             {

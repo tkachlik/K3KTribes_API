@@ -180,34 +180,14 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     0,
 
-                    new ValidationResultModel()
-                    {
-                        Errors = new List<ValidationError>()
-                        {
-                            new ValidationError()
-                            {
-                                Field = "KingdomId",
-                                ErrorMessage = "Must be a positive integer."
-                            }
-                        }
-                    }
+                    new ValidationResultModel("KingdomId", "Must be a positive integer greater than 0.")
                 },
 
                 new object[]
                 {
                     -5,
 
-                    new ValidationResultModel()
-                    {
-                        Errors = new List<ValidationError>()
-                        {
-                            new ValidationError()
-                            {
-                                Field = "KingdomId",
-                                ErrorMessage = "Must be a positive integer."
-                            }
-                        }
-                    }
+                    new ValidationResultModel("KingdomId", "Must be a positive integer greater than 0.")
                 }
             };
 
@@ -342,34 +322,14 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     0,
 
-                    new ValidationResultModel()
-                    {
-                        Errors = new List<ValidationError>()
-                        {
-                            new ValidationError()
-                            {
-                                Field = "KingdomId",
-                                ErrorMessage = "Must be a positive integer."
-                            }
-                        }
-                    }
+                    new ValidationResultModel("KingdomId", "Must be a positive integer greater than 0.")
                 },
 
                 new object[]
                 {
                     -5,
 
-                    new ValidationResultModel()
-                    {
-                        Errors = new List<ValidationError>()
-                        {
-                            new ValidationError()
-                            {
-                                Field = "KingdomId",
-                                ErrorMessage = "Must be a positive integer."
-                            }
-                        }
-                    }
+                    new ValidationResultModel("KingdomId", "Must be a positive integer greater than 0.")
                 }
             };
 

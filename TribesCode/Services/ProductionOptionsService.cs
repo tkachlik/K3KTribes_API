@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Productions;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomValidation;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using dusicyon_midnight_tribes_backend.Services.Repositories;
 
@@ -21,6 +22,11 @@ namespace dusicyon_midnight_tribes_backend.Services
 
         public IResponse ShowAvailableProductionOptions(int playerId, int kingdomId)
         {
+            if(kingdomId < 1)
+            {
+                return new ValidationResultModel("KingdomId", "Must be a positive integer greater than 0.");
+            }
+            
             if(!_kingdomRepo.CheckIfKingdomExistsById(kingdomId))
             {
                 return new ErrorResponse(404, "KingdomId", "No such kingdom found.");
