@@ -22,7 +22,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Run BUILD
+    - name: Build the app
       run: dotnet build
     - name: Run all tests in scope
       run: dotnet test --filter FullyQualifiedName!~TribesTests.IntegrationTests
