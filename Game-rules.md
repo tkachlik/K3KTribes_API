@@ -4,7 +4,7 @@
 
 This game is a basic event based Travian like game, where u control and manage
 resources and army in a kingdom and try to destroy other players or take control
-over their kingdoms tu rule them all over the map.
+over their kingdoms tu rule the whole world.
 
 After the registration you start with one kingdom in inner circle on the map
 (you need to pick a spot). You start with one farm and one mine to generate some
