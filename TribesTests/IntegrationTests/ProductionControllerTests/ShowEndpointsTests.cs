@@ -2,6 +2,7 @@
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Productions;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates.CustomValidation;
+using dusicyon_midnight_tribes_backend.Models.Entities;
 using dusicyon_midnight_tribes_backend.Models.Entities.DTOs;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
@@ -28,12 +29,12 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
         [Theory]
         [MemberData(nameof(ShowAvailableProductionOptions_OkTests_Data))]
-        public async Task ShowAvailableProductionOptions_OkTests(int playerId, ShowAvailableProductionOptionsRequest request, ShowAvailableProductionOptionsResponse expectedResponse)
+        public async Task ShowAvailableProductionOptions_OkTests(int playerId, int kingdomId, ShowAvailableProductionOptionsResponse expectedResponse)
         {
             string bearerToken = $"Bearer {_testTokenService.GenerateTestToken(playerId)}";
             _client.DefaultRequestHeaders.Add("Authorization", bearerToken);
 
-            var actualResult = await _client.PostAsJsonAsync(_showAllProductionOptionsUri, request);
+            var actualResult = await _client.GetAsync($"{_showAllProductionOptionsUri}/{kingdomId}");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<ShowAvailableProductionOptionsResponse>();
 
@@ -50,10 +51,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     1,
 
-                    new ShowAvailableProductionOptionsRequest()
-                    {
-                        KingdomId = 1
-                    },
+                    1,
 
                     new ShowAvailableProductionOptionsResponse
                     (
@@ -134,10 +132,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     2,
 
-                    new ShowAvailableProductionOptionsRequest()
-                    {
-                        KingdomId = 2
-                    },
+                    2,
 
                     new ShowAvailableProductionOptionsResponse
                     (
@@ -166,11 +161,11 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
         [Theory]
         [MemberData(nameof(ShowAvailableProductionOptions_DataValidationErrorTests_Data))]
-        public async Task ShowAvailableProductionOptions_DataValidationErrorTests(ShowAvailableProductionOptionsRequest request, ValidationResultModel expectedResponse)
+        public async Task ShowAvailableProductionOptions_DataValidationErrorTests(int kingdomId, ValidationResultModel expectedResponse)
         {
             _client.DefaultRequestHeaders.Add("Authorization", _bearerTokenForPlayer1);
 
-            var actualResult = await _client.PostAsJsonAsync(_showAllProductionOptionsUri, request);
+            var actualResult = await _client.GetAsync($"{_showAllProductionOptionsUri}/{kingdomId}");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<ValidationResultModel>();
 
@@ -185,10 +180,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
             {
                 new object[]
                 {
-                    new ShowAvailableProductionOptionsRequest()
-                    {
-                        KingdomId = 0
-                    },
+                    0,
 
                     new ValidationResultModel()
                     {
@@ -205,10 +197,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
                 new object[]
                 {
-                    new ShowAvailableProductionOptionsRequest()
-                    {
-                        KingdomId = -5
-                    },
+                    -5,
 
                     new ValidationResultModel()
                     {
@@ -226,12 +215,12 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
         [Theory]
         [MemberData(nameof(ShowAllProductionOptions_DatabaseError_Tests_Data))]
-        public async Task ShowAllProductionOptions_DatabaseError_Tests(int playerId, ShowAvailableProductionOptionsRequest request, ErrorResponse expectedResponse, HttpStatusCode expectedStatusCode)
+        public async Task ShowAllProductionOptions_DatabaseError_Tests(int playerId, int kingdomId, ErrorResponse expectedResponse, HttpStatusCode expectedStatusCode)
         {
             string bearerToken = $"Bearer {_testTokenService.GenerateTestToken(playerId)}";
             _client.DefaultRequestHeaders.Add("Authorization", bearerToken);
 
-            var actualResult = await _client.PostAsJsonAsync(_showAllProductionOptionsUri, request);
+            var actualResult = await _client.GetAsync($"{_showAllProductionOptionsUri}/{kingdomId}");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<ErrorResponse>();
 
@@ -246,10 +235,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     1,
 
-                    new ShowAvailableProductionOptionsRequest()
-                    {
-                        KingdomId = 1000,
-                    },
+                    1000,
 
                     new ErrorResponse(404, "KingdomId", "No such kingdom found."),
 
@@ -260,10 +246,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     2,
 
-                    new ShowAvailableProductionOptionsRequest()
-                    {
-                        KingdomId = 1,
-                    },
+                    1,
 
                     new ErrorResponse(401, "KingdomId", "This kingdom does not belong to you. You are not authorized to view its Production Options!"),
 
@@ -273,12 +256,12 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
         [Theory]
         [MemberData(nameof(ShowAllUncollectedProductions_OkTests_Data))]
-        public async Task ShowAllUncollectedProductions_OkTests(int playerId, ShowAllUncollectedProductionsRequest request, ShowAllUncollectedProductionsResponse expectedResponse)
+        public async Task ShowAllUncollectedProductions_OkTests(int playerId, int kingdomId, ShowAllUncollectedProductionsResponse expectedResponse)
         {
             string bearerToken = $"Bearer {_testTokenService.GenerateTestToken(playerId)}";
             _client.DefaultRequestHeaders.Add("Authorization", bearerToken);
 
-            var actualResult = await _client.PostAsJsonAsync(_showAllUncollectedProductionsUri, request);
+            var actualResult = await _client.GetAsync($"{_showAllProductionOptionsUri}/{kingdomId}");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<ShowAllUncollectedProductionsResponse>();
 
@@ -295,10 +278,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     1,
 
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = 1
-                    },
+                    1,
 
                     new ShowAllUncollectedProductionsResponse
                     (
@@ -320,10 +300,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     1,
 
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = 0001
-                    },
+                    1000,
 
                     new ShowAllUncollectedProductionsResponse
                     (
@@ -345,10 +322,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     2,
 
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = 2
-                    },
+                    2,
 
                     new ShowAllUncollectedProductionsResponse
                     (
@@ -360,10 +334,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
                 {
                     2,
 
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = 02
-                    },
+                    02,
 
                     new ShowAllUncollectedProductionsResponse
                     (
@@ -374,11 +345,11 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
         [Theory]
         [MemberData(nameof(ShowAllUncollectedProductions_ValidationErrorTests_Data))]
-        public async Task ShowAllUncollectedProductions_ValidationErrorTests(ShowAllUncollectedProductionsRequest request, ValidationResultModel expectedResponse)
+        public async Task ShowAllUncollectedProductions_ValidationErrorTests(int kingdomId, ValidationResultModel expectedResponse)
         {
             _client.DefaultRequestHeaders.Add("Authorization", _bearerTokenForPlayer1);
 
-            var actualResult = await _client.PostAsJsonAsync(_showAllUncollectedProductionsUri, request);
+            var actualResult = await _client.GetAsync($"{_showAllUncollectedProductionsUri}/{kingdomId}");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<ValidationResultModel>();
 
@@ -393,10 +364,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
             {
                 new object[]
                 {
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = 0
-                    },
+                    0,
 
                     new ValidationResultModel()
                     {
@@ -413,10 +381,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
                 new object[]
                 {
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = -5
-                    },
+                    -5,
 
                     new ValidationResultModel()
                     {
@@ -434,11 +399,11 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
         [Theory]
         [MemberData(nameof(ShowAllUncollectedProductions_DatabaseErrorTests_Data))]
-        public async Task ShowAllUncollectedProductions_DatabaseErrorTests(ShowAllUncollectedProductionsRequest request, ErrorResponse expectedResponse, HttpStatusCode expectedStatusCode)
+        public async Task ShowAllUncollectedProductions_DatabaseErrorTests(int kingdomId, ErrorResponse expectedResponse, HttpStatusCode expectedStatusCode)
         {
             _client.DefaultRequestHeaders.Add("Authorization", _bearerTokenForPlayer1);
 
-            var actualResult = await _client.PostAsJsonAsync(_showAllUncollectedProductionsUri, request);
+            var actualResult = await _client.GetAsync($"{_showAllUncollectedProductionsUri}/{kingdomId}");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<ErrorResponse>();
 
@@ -451,10 +416,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
             {
                 new object[]
                 {
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = 1000
-                    },
+                    1000,
 
                     new ErrorResponse(404, "KingdomId", "No such kingdom exists."),
 
@@ -463,10 +425,7 @@ namespace TribesTests.IntegrationTests.ProductionControllerTests
 
                 new object[]
                 {
-                    new ShowAllUncollectedProductionsRequest()
-                    {
-                        KingdomId = 2
-                    },
+                    2,
 
                     new ErrorResponse(401, "KingdomId", "This kingdom does not belong to you. You are not authorized to collect its productions!"),
 

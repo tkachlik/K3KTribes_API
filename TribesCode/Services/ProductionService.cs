@@ -74,10 +74,8 @@ namespace dusicyon_midnight_tribes_backend.Services
             return new ProduceResourceResponse(prodDTO);
         }
 
-        public IResponse ShowAllUncollectedProductions(int playerId, ShowAllUncollectedProductionsRequest request)
+        public IResponse ShowAllUncollectedProductions(int playerId, int kingdomId)
         {
-            int kingdomId = (request.KingdomId);
-
             if (!_kingdomRepo.CheckIfKingdomExistsById(kingdomId))
             {
                 return new ErrorResponse(404, "KingdomId", "No such kingdom exists.");
@@ -95,10 +93,8 @@ namespace dusicyon_midnight_tribes_backend.Services
             return new ShowAllUncollectedProductionsResponse(productionsDTOs);
         }
 
-        public IResponse CollectProduction(int playerId, CollectProductionRequest request)
+        public IResponse CollectProduction(int playerId, int productionId)
         {
-            int productionId = request.ProductionId;
-
             var production = _productionRepo.GetProductionById(productionId);
 
             if (production == null)
@@ -135,10 +131,8 @@ namespace dusicyon_midnight_tribes_backend.Services
             return new CollectProductionResponse(productionDTO);
         }
 
-        public IResponse DeleteProduction(int playerId, DeleteProductionRequest request)
+        public IResponse DeleteProduction(int playerId, int productionId)
         {
-            int productionId = request.ProductionId;
-
             var production = _productionRepo.GetProductionById(productionId);
 
             if (production == null)

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dusicyon_midnight_tribes_backend.Controllers
 {
-    [Route("api/productions")]
+    [Route("api/[controller]")]
     [ApiController, Authorize]
     public class ProductionsController : ControllerBase
     {
@@ -21,13 +21,13 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             _prodService = prodService;
         }
 
-        [HttpPost("show-available-production-options-of-kingdom")]
+        [HttpGet("show-available-production-options/{kingdomId}")]
         public ActionResult ShowAvailableProductionOptions
-            ([FromHeader]string authorization, [FromBody]ShowAvailableProductionOptionsRequest request)
+            ([FromHeader]string authorization, [FromRoute]int kingdomId)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _poService.ShowAllAvailableProductionOptions(playerId, request.KingdomId);
+            var response = _poService.ShowAllAvailableProductionOptions(playerId, kingdomId);
 
             if (response is ErrorResponse)
             {
@@ -57,13 +57,13 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             return Ok(response);
         }
 
-        [HttpPost("show-all-uncollected-productions")]
+        [HttpGet("show-all-uncollected-productions/{kingdomId}")]
         public ActionResult ShowAllUncollectedProductions
-            ([FromHeader] string authorization, [FromBody] ShowAllUncollectedProductionsRequest request)
+            ([FromHeader] string authorization, [FromRoute]int kingdomId)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _prodService.ShowAllUncollectedProductions(playerId, request);
+            var response = _prodService.ShowAllUncollectedProductions(playerId, kingdomId);
 
             if (response is ErrorResponse)
             {
@@ -75,13 +75,13 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             return Ok(response);
         }
 
-        [HttpPost("collect-production")]
+        [HttpPatch("collect-production/{productionId}")]
         public ActionResult CollectProduction
-            ([FromHeader] string authorization, [FromBody] CollectProductionRequest request)
+            ([FromHeader] string authorization, [FromRoute] int productionId)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _prodService.CollectProduction(playerId, request);
+            var response = _prodService.CollectProduction(playerId, productionId);
 
             if (response is ErrorResponse)
             {
@@ -93,13 +93,13 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             return Ok(response);
         }
 
-        [HttpPost("delete-production")]
+        [HttpDelete("delete-production/{productionId}")]
         public ActionResult DeleteProduction
-            ([FromHeader]string authorization, [FromBody] DeleteProductionRequest request)
+            ([FromHeader]string authorization, [FromRoute] int productionId)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _prodService.DeleteProduction(playerId, request);
+            var response = _prodService.DeleteProduction(playerId, productionId);
 
             if (response is ErrorResponse)
             {
