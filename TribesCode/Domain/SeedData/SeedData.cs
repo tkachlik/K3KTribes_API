@@ -309,6 +309,20 @@ namespace dusicyon_midnight_tribes_backend.Domain.SeedData
                     Amount = 1000,
                     ResourceTypeId = 2,
                     KingdomId = 1
+                },
+                new Resource() 
+                {
+                    Id = 3,
+                    Amount = 1000,
+                    ResourceTypeId = 1,
+                    KingdomId = 2
+                },
+                new Resource()
+                {
+                    Id = 4,
+                    Amount = 1000,
+                    ResourceTypeId = 2,
+                    KingdomId = 2
                 }
             };
 
