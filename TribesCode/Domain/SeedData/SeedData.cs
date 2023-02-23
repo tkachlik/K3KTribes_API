@@ -26,8 +26,7 @@ namespace dusicyon_midnight_tribes_backend.Domain.SeedData
         private void CheckIsEnvDevOrTestAndSetFieldIfTrue() 
         {
             if ((Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Test") ||
-                (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development") ||
-                (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == null))
+                (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"))
             {
                 _gameConfig.SetStartLevelOfSeedData(_startLevelOfSeedData);
                 _gameConfig.SetEndLevelOfSeedData(_endLevelOfSeedData);
