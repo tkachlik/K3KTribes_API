@@ -2,8 +2,8 @@
 
 namespace dusicyon_midnight_tribes_backend.Services
 {
-    public interface IProductionOptionsService
+    public interface IProductionOptionService
     {
-        IResponse ShowAllAvailableProductionOptions(int playerId, int kingdomId);
+        IResponse ShowAvailableProductionOptions(int playerId, int kingdomId);
     }
 }

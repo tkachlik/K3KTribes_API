@@ -12,12 +12,12 @@ namespace dusicyon_midnight_tribes_backend.Controllers;
 public class BuildingsController : ControllerBase
 {
     private readonly ITokenService _tokenService;
-    private readonly IBuildingService _building;
+    private readonly IBuildingService _buildingService;
 
     public BuildingsController(ITokenService tokenService, IBuildingService building)
     {
         _tokenService = tokenService;
-        _building = building;
+        _buildingService = building;
     }
 
     [HttpPost("create")]
@@ -25,7 +25,7 @@ public class BuildingsController : ControllerBase
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-        var response = _building.Create(request, playerId);
+        var response = _buildingService.Create(request, playerId);
         if (response is ErrorResponse)
         {
             var error = response as ErrorResponse;
@@ -42,7 +42,7 @@ public class BuildingsController : ControllerBase
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-        var response = _building.Upgrade(request, playerId);
+        var response = _buildingService.Upgrade(request, playerId);
         if (response is ErrorResponse)
         {
             var error = response as ErrorResponse;
@@ -59,7 +59,7 @@ public class BuildingsController : ControllerBase
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-        var response = _building.ConstructionOptions(request, playerId);
+        var response = _buildingService.ConstructionOptions(request, playerId);
         if (response is ErrorResponse)
         {
             var error = response as ErrorResponse;
@@ -76,7 +76,7 @@ public class BuildingsController : ControllerBase
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
         
-        var response = _building.ShowAvailableUpgrades(request, playerId);
+        var response = _buildingService.ShowAvailableUpgrades(request, playerId);
 
         if (response is ErrorResponse)
         {
@@ -95,7 +95,7 @@ public class BuildingsController : ControllerBase
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
         
-        var response = _building.ShowBuildingsUnderConstruction(request, playerId);
+        var response = _buildingService.ShowBuildingsUnderConstruction(request, playerId);
         
         if (response is ErrorResponse)
         {

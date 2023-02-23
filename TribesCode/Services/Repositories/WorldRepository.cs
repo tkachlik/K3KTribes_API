@@ -1,8 +1,6 @@
 ﻿using dusicyon_midnight_tribes_backend.Contexts;
-using dusicyon_midnight_tribes_backend.Models.APIRequests.WorldRest;
 using dusicyon_midnight_tribes_backend.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace dusicyon_midnight_tribes_backend.Services.Repositories
 {

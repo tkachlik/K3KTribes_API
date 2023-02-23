@@ -1,20 +1,15 @@
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 using dusicyon_midnight_tribes_backend.Contexts;
 using dusicyon_midnight_tribes_backend.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using HostingEnvironmentExtensions = Microsoft.Extensions.Hosting.HostingEnvironmentExtensions;
 
 namespace dusicyon_midnight_tribes_backend.Services.Repositories;
 
 public class KingdomRepository : IKingdomRepository
 {
     private readonly IContext _context;
-    private readonly IBuildingTypeRepository _buildingTypeRepository;
-    public KingdomRepository(IContext context, IBuildingTypeRepository buildingTypeRepository)
+    public KingdomRepository(IContext context)
     {
         _context = context;
-        _buildingTypeRepository = buildingTypeRepository;
     }
     public Kingdom GetKingdomById(int kingdomId)
     {

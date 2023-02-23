@@ -6,7 +6,7 @@ namespace dusicyon_midnight_tribes_backend.Services
     public interface IProductionService
     {
         IResponse ProduceResource(int playerId, ProduceResourceRequest request);
-        IResponse ShowAllUncollectedProductions(int playerId, int kingdomId);
+        IResponse ShowUncollectedProductions(int playerId, int kingdomId);
         IResponse CollectProduction(int playerId, int productionId);
         IResponse DeleteProduction(int playerId, int productionId);
     }

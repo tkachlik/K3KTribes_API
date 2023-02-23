@@ -74,7 +74,7 @@ namespace dusicyon_midnight_tribes_backend.Services
             return new ProduceResourceResponse(prodDTO);
         }
 
-        public IResponse ShowAllUncollectedProductions(int playerId, int kingdomId)
+        public IResponse ShowUncollectedProductions(int playerId, int kingdomId)
         {
             if (!_kingdomRepo.CheckIfKingdomExistsById(kingdomId))
             {
@@ -90,7 +90,7 @@ namespace dusicyon_midnight_tribes_backend.Services
 
             var productionsDTOs = productions.Select(p => _mapper.Map<ProductionDTO>(p)).ToList();
 
-            return new ShowAllUncollectedProductionsResponse(productionsDTOs);
+            return new ShowUncollectedProductionsResponse(productionsDTOs);
         }
 
         public IResponse CollectProduction(int playerId, int productionId)

@@ -140,7 +140,7 @@ builder.Services.AddScoped<IResourceRepository, ResourceRepository>();
 builder.Services.AddScoped<IBuildingTypeRepository, BuildingTypeRepository>();
 
 builder.Services.AddScoped<IProductionOptionRepository, ProductionOptionRepository>();
-builder.Services.AddScoped<IProductionOptionsService, ProductionOptionsService>();
+builder.Services.AddScoped<IProductionOptionService, ProductionOptionService>();
 builder.Services.AddScoped<IProductionRepository, ProductionRepository>();
 builder.Services.AddScoped<IProductionService, ProductionService>();
 

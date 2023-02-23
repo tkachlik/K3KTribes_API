@@ -11,14 +11,14 @@ namespace dusicyon_midnight_tribes_backend.Controllers
     public class ProductionsController : ControllerBase
     {
         private readonly ITokenService _tokenService;
-        private readonly IProductionOptionsService _poService;
-        private readonly IProductionService _prodService;
+        private readonly IProductionOptionService _productionOptionService;
+        private readonly IProductionService _productionService;
 
-        public ProductionsController(ITokenService tokenService, IProductionOptionsService poService, IProductionService prodService)
+        public ProductionsController(ITokenService tokenService, IProductionOptionService poService, IProductionService prodService)
         {
             _tokenService = tokenService;
-            _poService = poService;
-            _prodService = prodService;
+            _productionOptionService = poService;
+            _productionService = prodService;
         }
 
         [HttpGet("show-available-production-options/{kingdomId}")]
@@ -27,7 +27,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _poService.ShowAllAvailableProductionOptions(playerId, kingdomId);
+            var response = _productionOptionService.ShowAvailableProductionOptions(playerId, kingdomId);
 
             if (response is ErrorResponse)
             {
@@ -45,7 +45,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _prodService.ProduceResource(playerId, request);
+            var response = _productionService.ProduceResource(playerId, request);
 
             if (response is ErrorResponse)
             {
@@ -57,13 +57,13 @@ namespace dusicyon_midnight_tribes_backend.Controllers
             return Ok(response);
         }
 
-        [HttpGet("show-all-uncollected-productions/{kingdomId}")]
-        public ActionResult ShowAllUncollectedProductions
+        [HttpGet("show-uncollected-productions/{kingdomId}")]
+        public ActionResult ShowUncollectedProductions
             ([FromHeader] string authorization, [FromRoute]int kingdomId)
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _prodService.ShowAllUncollectedProductions(playerId, kingdomId);
+            var response = _productionService.ShowUncollectedProductions(playerId, kingdomId);
 
             if (response is ErrorResponse)
             {
@@ -81,7 +81,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _prodService.CollectProduction(playerId, productionId);
+            var response = _productionService.CollectProduction(playerId, productionId);
 
             if (response is ErrorResponse)
             {
@@ -99,7 +99,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            var response = _prodService.DeleteProduction(playerId, productionId);
+            var response = _productionService.DeleteProduction(playerId, productionId);
 
             if (response is ErrorResponse)
             {

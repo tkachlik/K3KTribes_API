@@ -6,20 +6,20 @@ using dusicyon_midnight_tribes_backend.Services.Repositories;
 
 namespace dusicyon_midnight_tribes_backend.Services
 {
-    public class ProductionOptionsService : IProductionOptionsService
+    public class ProductionOptionService : IProductionOptionService
     {
         private readonly IProductionOptionRepository _productionOptionRepo;
         private readonly IKingdomRepository _kingdomRepo;
         private readonly IMapper _mapper;
 
-        public ProductionOptionsService(IProductionOptionRepository poRepo, IKingdomRepository kingdomRepo, IMapper mapper)
+        public ProductionOptionService(IProductionOptionRepository poRepo, IKingdomRepository kingdomRepo, IMapper mapper)
         {
             _productionOptionRepo = poRepo;
             _kingdomRepo = kingdomRepo;
             _mapper = mapper;
         }
 
-        public IResponse ShowAllAvailableProductionOptions(int playerId, int kingdomId)
+        public IResponse ShowAvailableProductionOptions(int playerId, int kingdomId)
         {
             if(!_kingdomRepo.CheckIfKingdomExistsById(kingdomId))
             {

@@ -14,8 +14,8 @@ namespace dusicyon_midnight_tribes_backend.Services
     {
         private readonly IConfiguration _config;
         private readonly IGenericRepository _repo;
-        private readonly IEmailVerificationsRepository _evRepo;
-        private readonly IForgottenPasswordsRepository _fpRepo;
+        private readonly IEmailVerificationsRepository _emailVerificationRepo;
+        private readonly IForgottenPasswordsRepository _forgottenPasswordRepo;
 
         public TokenService(IConfiguration config,
             IGenericRepository repo,
@@ -24,8 +24,8 @@ namespace dusicyon_midnight_tribes_backend.Services
         {
             _config = config;
             _repo = repo;
-            _evRepo = evRepo;
-            _fpRepo = fpRepo;
+            _emailVerificationRepo = evRepo;
+            _forgottenPasswordRepo = fpRepo;
         }
 
         public int ReadPlayerIdFromTokenInHeader(string authorization)
@@ -84,7 +84,7 @@ namespace dusicyon_midnight_tribes_backend.Services
             var token = new JwtSecurityTokenHandler().ReadJwtToken(tokenFromEmail);
             var playerIdFromToken = Int32.Parse(token.Claims.FirstOrDefault(c => c.Type == "nameid").Value);
 
-            var emailVerification = _evRepo.GetEv_IncludingPlayer_ByTokenFromEmail(tokenFromEmail);
+            var emailVerification = _emailVerificationRepo.GetEv_IncludingPlayer_ByTokenFromEmail(tokenFromEmail);
 
             if (emailVerification == null || emailVerification.PlayerId != playerIdFromToken)
             {
@@ -103,7 +103,7 @@ namespace dusicyon_midnight_tribes_backend.Services
                 emailVerification.ExpiresAt = null;
                 emailVerification.Player.VerifiedAt = DateTime.Now;
 
-                _evRepo.UpdateEV(emailVerification);
+                _emailVerificationRepo.UpdateEV(emailVerification);
 
                 if (!_repo.Save())
                 {
@@ -120,7 +120,7 @@ namespace dusicyon_midnight_tribes_backend.Services
             var token = new JwtSecurityTokenHandler().ReadJwtToken(tokenFromEmail);
             playerIdFromToken = Int32.Parse(token.Claims.FirstOrDefault(c => c.Type == "nameid").Value);
 
-            forgottenPassword = _fpRepo.GetFPByTokenFromEmail(tokenFromEmail);
+            forgottenPassword = _forgottenPasswordRepo.GetFPByTokenFromEmail(tokenFromEmail);
 
             if (forgottenPassword == null || forgottenPassword.PlayerId != playerIdFromToken)
             {
