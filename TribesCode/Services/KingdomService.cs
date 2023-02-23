@@ -175,7 +175,7 @@ public class KingdomService : IKingdomService
         }
     }
 
-    public IResponse GetAllMyKingdoms(int playerId)
+    public IResponse GetMyKingdoms(int playerId)
     {
         var kingdoms = _kingdomRepo.GetAllCurrentPlayersKingdoms(playerId);
 

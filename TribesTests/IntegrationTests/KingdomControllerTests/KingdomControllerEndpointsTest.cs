@@ -68,7 +68,7 @@ public class KingdomControllerEndpointsTest : IClassFixture<WebApplicationFactor
         public async Task GetMyKingdomTest(GetAllMyKingdomsResponse expectedResponse, HttpStatusCode expectedStatusCode)
         {
             // Arrange & Act
-            var actualResult = await _client.GetAsync("/api/kingdoms/get-all-my-kingdoms");
+            var actualResult = await _client.GetAsync("/api/kingdoms/get-my-kingdoms");
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<GetAllMyKingdomsResponse>();
             var actualStatusCode = actualResult.StatusCode;
 

@@ -30,11 +30,11 @@ public class KingdomsController : ControllerBase
     }
 
     [HttpGet("get-my-kingdoms")]
-    public ActionResult GetAllMyKingdoms ([FromHeader]string authorization)
+    public ActionResult GetMyKingdoms ([FromHeader]string authorization)
     {
         int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-        var response = _kingdomService.GetAllMyKingdoms(playerId);
+        var response = _kingdomService.GetMyKingdoms(playerId);
 
         if (response is ErrorResponse)
         {
