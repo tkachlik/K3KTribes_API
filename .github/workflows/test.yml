@@ -12,8 +12,8 @@ env:
   ASPNETCORE_ENVIRONMENT: Test
 
 jobs:
-  BUILD:
-    name: Build the app
+  TEST:
+    name: Run all tests in scope
     runs-on: windows-latest
     steps:
     - name: Checkout GITHub branch
@@ -24,10 +24,5 @@ jobs:
         dotnet-version: 6.0.x
     - name: Run BUILD
       run: dotnet build
-  TEST:
-    needs: BUILD
-    name: Run all tests (except integration tests using test DB)
-    runs-on: windows-latest
-    steps:
     - name: Run all tests in scope
       run: dotnet test --filter FullyQualifiedName!~TribesTests.IntegrationTests
