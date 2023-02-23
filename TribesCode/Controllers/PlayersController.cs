@@ -53,7 +53,16 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         {
             int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-            return Ok(_playerService.GetPlayerByID(playerId));
+            var response = _playerService.GetPlayerByID(playerId);
+
+            if (response is Error) 
+            {
+                var error = response as ErrorResponse;
+
+                return StatusCode(error.StatusCode, error);
+            }
+
+            return Ok(response);
         }
     }
 }
