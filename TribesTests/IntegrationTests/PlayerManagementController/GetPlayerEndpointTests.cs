@@ -24,7 +24,7 @@ namespace TribesTests.IntegrationTests.PlayerManagementController
             string token = _testTokenHelper.GenerateTestToken(playerId);
             _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
-            var actualResult = await _client.PostAsync("api/playermanagement/get-player", null);
+            var actualResult = await _client.GetAsync("api/players/get-my-info");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<GetPlayerByIdResponse>();
 

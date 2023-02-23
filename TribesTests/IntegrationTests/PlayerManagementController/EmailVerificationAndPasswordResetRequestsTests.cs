@@ -51,7 +51,7 @@ namespace TribesTests.IntegrationTests.PlayerManagementController
         {
             _client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_testTokenService.GenerateTestToken(playerId)}");
 
-            var actualResult = await _client.PostAsJsonAsync("api/email/verify/resend", "");
+            var actualResult = await _client.PostAsJsonAsync("api/playermanagement/resend-email-verification-token", "");
             var actualStatusCode = actualResult.StatusCode;
             var actualResponse = await actualResult.Content.ReadFromJsonAsync<ErrorResponse>();
 
