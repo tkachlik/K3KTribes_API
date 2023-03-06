@@ -37,12 +37,12 @@ public class BuildingsController : ControllerBase
         }
     }
 
-    [HttpPost("upgrade")]
-    public ActionResult Upgrade([FromHeader] string authorization, UpgradeBuildingRequest request)
+    [HttpPut("upgrade/{buildingId}")]
+    public ActionResult Upgrade([FromHeader] string authorization, [FromRoute] int buildingId)
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-        var response = _buildingService.Upgrade(request, playerId);
+        var response = _buildingService.Upgrade(buildingId, playerId);
         if (response is ErrorResponse)
         {
             var error = response as ErrorResponse;
@@ -54,12 +54,12 @@ public class BuildingsController : ControllerBase
         }
     }
 
-    [HttpPost("show-construction-options")]
-    public ActionResult ConstructionOptions([FromHeader] string authorization,ConstructionOptionsRequest request)
+    [HttpGet("show-construction-options/{kingdomId}")]
+    public ActionResult ShowConstructionOptions([FromHeader] string authorization,[FromRoute] int kingdomId)
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-        var response = _buildingService.ConstructionOptions(request, playerId);
+        var response = _buildingService.ShowConstructionOptions(kingdomId, playerId);
         if (response is ErrorResponse)
         {
             var error = response as ErrorResponse;
@@ -71,12 +71,12 @@ public class BuildingsController : ControllerBase
         }
     }
 
-    [HttpPost("show-available-upgrades")]
-    public ActionResult ShowAvailableUpgrades([FromHeader] string authorization, ShowAvailableUpgradesRequest request)
+    [HttpGet("show-available-upgrades/{kingdomId}")]
+    public ActionResult ShowAvailableUpgrades([FromHeader] string authorization, [FromRoute] int kingdomId)
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
         
-        var response = _buildingService.ShowAvailableUpgrades(request, playerId);
+        var response = _buildingService.ShowAvailableUpgrades(kingdomId, playerId);
 
         if (response is ErrorResponse)
         {
@@ -89,13 +89,13 @@ public class BuildingsController : ControllerBase
         }
     }
 
-    [HttpPost("show-buildings-under-construction")]
+    [HttpGet("show-buildings-under-construction/{kingdomId}")]
     public ActionResult ShowBuildingsUnderConstruction([FromHeader] string authorization,
-        ShowBuildingsUnderConstructionRequest request)
+        [FromRoute] int kingdomId)
     {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
         
-        var response = _buildingService.ShowBuildingsUnderConstruction(request, playerId);
+        var response = _buildingService.ShowBuildingsUnderConstruction(kingdomId, playerId);
         
         if (response is ErrorResponse)
         {

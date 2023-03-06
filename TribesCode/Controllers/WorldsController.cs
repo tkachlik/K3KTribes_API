@@ -22,7 +22,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         }
 
         [HttpGet("")]
-        public ActionResult Index()
+        public ActionResult GetAllWorlds()
         {
             var response = _worldService.GetAllWorlds();
 
@@ -35,7 +35,7 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Show(int id)
+        public ActionResult GetWorldById (int id)
         {
             var response = _worldService.GetWorldById(id);
 
@@ -63,20 +63,6 @@ namespace dusicyon_midnight_tribes_backend.Controllers
 
             return Ok(response);
             
-        }
-
-        [HttpGet("connectionsinfo")]
-        public ActionResult ConnectionInfo()
-        {
-
-            var response = new ConnectionInfoResponse()
-            {
-                CurrentEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
-            };
-
-            
-            return Ok(response);
-
         }
     }
 }

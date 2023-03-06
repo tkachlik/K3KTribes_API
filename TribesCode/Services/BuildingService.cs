@@ -142,16 +142,16 @@ public class BuildingService : IBuildingService
 
 
 
-    public IResponse Upgrade(UpgradeBuildingRequest request, int playerId)
+    public IResponse Upgrade(int buildingId, int playerId)
     {
-        if (_buildingRepo.DoesBuildingExist(request.BuildingId))
+        if (_buildingRepo.DoesBuildingExist(buildingId))
         {
             var response = new ErrorResponse(404, "building", "does not exist");
 
             return response;
         }
 
-        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, _buildingRepo.GetKingdomIdFromBuildingId(request.BuildingId)))
+        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, _buildingRepo.GetKingdomIdFromBuildingId(buildingId)))
         {
             var response = new ErrorResponse(401, "Authorization",
                 "The building inside of this kingdom does not belong to you");
@@ -159,40 +159,40 @@ public class BuildingService : IBuildingService
             return response;
         }
 
-        if (_buildingRepo.CheckIfBuildingIsUnderConstruction(request.BuildingId))
+        if (_buildingRepo.CheckIfBuildingIsUnderConstruction(buildingId))
         {
             var response = new ErrorResponse(403, "Forbidden", "This building is still under construction");
 
             return response;
         }
 
-        if (!IsTownhall(request.BuildingId))
+        if (!IsTownhall(buildingId))
         {
-            if (BuildingTownhallComparison(_buildingRepo.GetBuildingById(request.BuildingId)))
+            if (BuildingTownhallComparison(_buildingRepo.GetBuildingById(buildingId)))
             {
                 var response = new ErrorResponse(413, "Townhall", "Building cannot have a higher level than the townhall");
 
                 return response;
             }
         }
-        if (_buildingRepo.CheckLevel(request.BuildingId))
+        if (_buildingRepo.CheckLevel(buildingId))
         {
             var response = new ErrorResponse(403, "BuildingLevel", "You are already max level");
 
             return response;
         }
         
-        if (CheckUpgradeFunds(_buildingRepo.GetKingdomIdFromBuildingId(request.BuildingId), request.BuildingId))
+        if (CheckUpgradeFunds(_buildingRepo.GetKingdomIdFromBuildingId(buildingId), buildingId))
         {
             var response = new ErrorResponse(402, "Resources", "You dont have enough gold or food");
 
             return response;
         }
-        if (IsTownhall(request.BuildingId))
+        if (IsTownhall(buildingId))
         {
             
-            _buildingRepo.UpgradeBuilding(request.BuildingId);
-            var building = _buildingRepo.GetBuildingById(request.BuildingId);
+            _buildingRepo.UpgradeBuilding(buildingId);
+            var building = _buildingRepo.GetBuildingById(buildingId);
             
             if (!_repo.Save())
             {
@@ -204,8 +204,8 @@ public class BuildingService : IBuildingService
         }
         else
         {
-            _buildingRepo.UpgradeBuilding(request.BuildingId);
-            UpgradeKingdomStorageCapacity(_buildingRepo.GetKingdomIdFromBuildingId(request.BuildingId));
+            _buildingRepo.UpgradeBuilding(buildingId);
+            UpgradeKingdomStorageCapacity(_buildingRepo.GetKingdomIdFromBuildingId(buildingId));
             
             if (!_repo.Save())
             {
@@ -218,15 +218,15 @@ public class BuildingService : IBuildingService
         }
     }
 
-    public IResponse ConstructionOptions(ConstructionOptionsRequest request, int playerId)
+    public IResponse ShowConstructionOptions(int kingdomId, int playerId)
     {
-        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, request.KingdomId))
+        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, kingdomId))
         {
-            var response = new ErrorResponse(401, "Authorization", "This kingdom isnt yours");
+            var response = new ErrorResponse(401, "Authorization", "This kingdom isn't yours.");
     
             return response;
         }
-        var building =_buildingRepo.GetAllKingdomBuildings(request.KingdomId);
+        var building =_buildingRepo.GetAllKingdomBuildings(kingdomId);
         
         var farmAmount = building.Count(b => b.BuildingType.Name.ToLower() == _gameConfig.GetBuildingTypeName(0).ToLower());
         var mineAmount = building.Count(b => b.BuildingType.Name.ToLower() == _gameConfig.GetBuildingTypeName(1).ToLower());
@@ -268,16 +268,16 @@ public class BuildingService : IBuildingService
         }
         return upgradeOptionsList;
     }
-    public IResponse ShowAvailableUpgrades(ShowAvailableUpgradesRequest request, int playerId)
+    public IResponse ShowAvailableUpgrades(int kingdomId, int playerId)
     {
-        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, request.KingdomId))
+        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, kingdomId))
         {
             var response = new ErrorResponse(401, "Authorization", "This kingdom isnt yours");
     
             return response;
         }
 
-        var upgradeOptionList = GetBuildingUpgradeDTOs(request.KingdomId);
+        var upgradeOptionList = GetBuildingUpgradeDTOs(kingdomId);
 
         if (upgradeOptionList.Count == 0)
         {
@@ -308,9 +308,9 @@ public class BuildingService : IBuildingService
     }
     
 
-    public IResponse ShowBuildingsUnderConstruction(ShowBuildingsUnderConstructionRequest request, int playerId)
+    public IResponse ShowBuildingsUnderConstruction(int kingdomId, int playerId)
     {
-        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, request.KingdomId))
+        if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, kingdomId))
         {
             var response = new ErrorResponse(401, "Authorization", "This kingdom isnt yours");
     
@@ -318,7 +318,7 @@ public class BuildingService : IBuildingService
         }
         else
         {
-            var response = new ShowBuildingsUnderConstructionResponse(GetUnderConstructionDTOs(request.KingdomId));
+            var response = new ShowBuildingsUnderConstructionResponse(GetUnderConstructionDTOs(kingdomId));
 
             return response;
         }

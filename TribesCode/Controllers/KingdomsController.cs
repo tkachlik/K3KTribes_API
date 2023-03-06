@@ -22,7 +22,7 @@ public class KingdomsController : ControllerBase
     }
 
     [HttpGet("")]
-    public IActionResult Index()
+    public IActionResult GetAllKingdoms()
     {
         var response = _kingdomService.GetAllKingdoms();
         if (response is not ErrorResponse error) return Ok(response);
@@ -30,11 +30,11 @@ public class KingdomsController : ControllerBase
     }
 
     [HttpGet("get-my-kingdoms")]
-    public ActionResult GetMyKingdoms ([FromHeader]string authorization)
+    public ActionResult GetLoggedInPlayersKingdoms ([FromHeader]string authorization)
     {
         int playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 
-        var response = _kingdomService.GetMyKingdoms(playerId);
+        var response = _kingdomService.GetLoggedInPlayersKingdoms(playerId);
 
         if (response is ErrorResponse)
         {
@@ -48,7 +48,7 @@ public class KingdomsController : ControllerBase
 
 
     [HttpGet("{id}")]
-    public ActionResult Show([FromRoute] int id)
+    public ActionResult GetKingdomById ([FromRoute] int id)
     {
         var response = _kingdomService.GetKingdomByID(id);
         if (response is not ErrorResponse error) return Ok(response);
@@ -56,7 +56,7 @@ public class KingdomsController : ControllerBase
     }
 
      [HttpPost("create")]
-     public ActionResult Create([FromHeader] string authorization, CreateKingdomRequest request)
+     public ActionResult CreateKingdom ([FromHeader] string authorization, CreateKingdomRequest request)
      {
         var playerId = _tokenService.ReadPlayerIdFromTokenInHeader(authorization);
 

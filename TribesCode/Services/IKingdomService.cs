@@ -8,5 +8,5 @@ public interface IKingdomService
     IResponse GetAllKingdoms();
     IResponse GetKingdomByID(int kingdomId);
     IResponse Create(CreateKingdomRequest request, int playerId);
-    IResponse GetMyKingdoms(int playerId);
+    IResponse GetLoggedInPlayersKingdoms(int playerId);
 }
