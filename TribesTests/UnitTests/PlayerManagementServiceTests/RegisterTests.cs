@@ -8,7 +8,7 @@ using dusicyon_midnight_tribes_backend.Services;
 using dusicyon_midnight_tribes_backend.Services.Repositories;
 using Moq;
 
-namespace TribesTests.MockTest.PlayerManagementServiceTests
+namespace TribesTests.UnitTests.PlayerManagementServiceTests
 {
     public class RegisterTests
     {

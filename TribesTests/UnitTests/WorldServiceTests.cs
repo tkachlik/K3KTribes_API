@@ -8,9 +8,9 @@ using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
 using dusicyon_midnight_tribes_backend.Models.APIResponses.Worlds;
 using dusicyon_midnight_tribes_backend.Models.APIRequests.WorldRest;
 
-namespace TribesTests.MockTest;
+namespace TribesTests.UnitTests;
 
-public class WorldServiceMockTest
+public class WorldServiceTests
 {
     private readonly WorldService _sut; // system under test
     private readonly Mock <IGenericRepository> _genericRepoMock = new Mock<IGenericRepository> ();
@@ -18,7 +18,7 @@ public class WorldServiceMockTest
     private readonly Mock <IPlayerRepository> _playerRepoMock = new Mock<IPlayerRepository> ();
     private readonly Mock <IMapper> _mapperMock = new Mock<IMapper> ();
     
-    public WorldServiceMockTest()
+    public WorldServiceTests()
     {
         _sut = new WorldService(_genericRepoMock.Object, 
                                 _worldRepoMock.Object, 
