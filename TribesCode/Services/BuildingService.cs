@@ -77,21 +77,21 @@ public class BuildingService : IBuildingService
         
         if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, request.KingdomId))
         {
-            var response = new ErrorResponse(401, "Authorization", "This kingdom does not belong to you");
+            var response = new ErrorResponse(401, "KingdomId", "This kingdom does not belong to you");
 
             return response;
         }
 
         if (CheckResources(request.KingdomId, request))
         {
-            var response = new ErrorResponse(402, "Resources", "You dont have enough gold or food");
+            var response = new ErrorResponse(404, "BuildingType", "You dont have enough gold or food");
 
             return response;
         }
 
         if (_buildingRepo.CheckBuildingLimit(request.KingdomId, request.BuildingType))
         {
-            var response = new ErrorResponse(413, "Buildings", "You cannot build over the building limit");
+            var response = new ErrorResponse(400, "BuildingType", "You cannot build over the building limit");
 
             return response;
         }
@@ -146,22 +146,21 @@ public class BuildingService : IBuildingService
     {
         if (_buildingRepo.DoesBuildingExist(buildingId))
         {
-            var response = new ErrorResponse(404, "building", "does not exist");
+            var response = new ErrorResponse(404, "BuildingId", "No such building found.");
 
             return response;
         }
 
         if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, _buildingRepo.GetKingdomIdFromBuildingId(buildingId)))
         {
-            var response = new ErrorResponse(401, "Authorization",
-                "The building inside of this kingdom does not belong to you");
+            var response = new ErrorResponse(401, "BuildingId", "The building belongs to a kingdom you do not own. You are not authorized to upgrade it.");
 
             return response;
         }
 
         if (_buildingRepo.CheckIfBuildingIsUnderConstruction(buildingId))
         {
-            var response = new ErrorResponse(403, "Forbidden", "This building is still under construction");
+            var response = new ErrorResponse(400, "BuildingId", "This building is still under construction.");
 
             return response;
         }
@@ -170,21 +169,21 @@ public class BuildingService : IBuildingService
         {
             if (BuildingTownhallComparison(_buildingRepo.GetBuildingById(buildingId)))
             {
-                var response = new ErrorResponse(413, "Townhall", "Building cannot have a higher level than the townhall");
+                var response = new ErrorResponse(400, "BuildingId", "No building's level can exceed your Townhall's level.");
 
                 return response;
             }
         }
         if (_buildingRepo.CheckLevel(buildingId))
         {
-            var response = new ErrorResponse(403, "BuildingLevel", "You are already max level");
+            var response = new ErrorResponse(400, "BuildingId", "This building is already on maximum level possible.");
 
             return response;
         }
         
         if (CheckUpgradeFunds(_buildingRepo.GetKingdomIdFromBuildingId(buildingId), buildingId))
         {
-            var response = new ErrorResponse(402, "Resources", "You dont have enough gold or food");
+            var response = new ErrorResponse(404, "BuildingId", "You don't have enough resources.");
 
             return response;
         }
@@ -222,7 +221,7 @@ public class BuildingService : IBuildingService
     {
         if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, kingdomId))
         {
-            var response = new ErrorResponse(401, "Authorization", "This kingdom isn't yours.");
+            var response = new ErrorResponse(401, "KingdomId", "This kingdom does not belong to you.");
     
             return response;
         }
@@ -272,7 +271,7 @@ public class BuildingService : IBuildingService
     {
         if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, kingdomId))
         {
-            var response = new ErrorResponse(401, "Authorization", "This kingdom isnt yours");
+            var response = new ErrorResponse(401, "KingdomId", "This kingdom does not belong to you.");
     
             return response;
         }
@@ -281,7 +280,7 @@ public class BuildingService : IBuildingService
 
         if (upgradeOptionList.Count == 0)
         {
-            var response = new ErrorResponse(404, "Upgrade", "No upgradeable buildings were found");
+            var response = new ErrorResponse(404, "KingdomId", "There are no upgradeable buildings in this kingdom.");
     
             return response;
         }
@@ -312,7 +311,7 @@ public class BuildingService : IBuildingService
     {
         if (!_kingdomRepo.CheckIfPlayerIsOwner(playerId, kingdomId))
         {
-            var response = new ErrorResponse(401, "Authorization", "This kingdom isnt yours");
+            var response = new ErrorResponse(401, "KingdomId", "This kingdom does not belong to you.");
     
             return response;
         }
