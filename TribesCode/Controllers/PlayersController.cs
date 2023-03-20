@@ -36,6 +36,11 @@ namespace dusicyon_midnight_tribes_backend.Controllers
         [HttpGet("{id}")]
         public ActionResult GetPlayerById([FromRoute]int id)
         {
+            //if (id == 123)
+            //{
+            //    throw new Exception("message from controller");
+            //}
+
             var response = _playerService.GetPlayerByID(id);
 
             if (response is ErrorResponse)

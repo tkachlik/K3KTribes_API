@@ -11,7 +11,9 @@ using System.Text;
 using dusicyon_midnight_tribes_backend.Services.Repositories;
 using dusicyon_midnight_tribes_backend.Domain.GameConfig;
 using dusicyon_midnight_tribes_backend.Domain.SeedData;
-
+using dusicyon_midnight_tribes_backend.Models.APIResponses.Templates;
+using System.Text.Json;
+using dusicyon_midnight_tribes_backend.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -147,12 +149,13 @@ builder.Services.AddScoped<IProductionService, ProductionService>();
 builder.Services.AddScoped<IGameConfig, GameConfig>();
 builder.Services.AddScoped<ISeedData, SeedData>();
 
-
+builder.Services.AddTransient<GlobalErrorHandlingMiddleware>();
 
 
 var app = builder.Build();
 
 //Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Test")
 {
     app.UseSwagger();
@@ -168,8 +171,9 @@ else
     });
 }
 
-
 app.UseHttpsRedirection();
+
+app.UseGlobalErrorHandling();
 
 app.UseAuthentication();
 
